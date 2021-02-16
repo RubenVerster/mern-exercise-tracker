@@ -13,11 +13,14 @@ router.route('/add').post((req, res) => {
 
   newUser
     .save()
-    .then(() =>
-      res
-        .json('User Added')
-        .catch((err) => res.status(400).json(`Error : ${err}`))
-    );
+    .then(() => res.json('User Added'))
+    .catch((err) => res.status(400).json(`Error : ${err}`));
+});
+
+router.route('/:id').delete((req, res) => {
+  User.findByIdAndDelete(req.params.id)
+    .then(() => res.json('User deleted'))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;
